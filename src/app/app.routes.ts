@@ -9,4 +9,4 @@ export const routes: Routes = [
   { path: 'reserve/:id', component: BookingForm },
   { path: 'dashboard', component: DashboardComponent },
   { path: '', redirectTo: '/reserve', pathMatch: 'full' },
-  { path: '**', component: SeatComponent }
+  { path: '**', component: SeatComponent }];
