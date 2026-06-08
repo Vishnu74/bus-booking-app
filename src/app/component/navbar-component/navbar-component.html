@@ -1,0 +1,12 @@
+<nav class="bg-blue-600 text-white px-6 py-4 flex items-center justify-between shadow-md">
+  <div class="font-bold text-xl tracking-tight">Bus Booking</div>
+  <div>
+    <select
+  (change)="navigateTo($any($event.target).value)"
+  class="bg-white text-gray-800 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+>
+      <option value="/reserve">Reservation</option>
+      <option value="/dashboard">Dashboard</option>
+    </select>
+  </div>
+</nav>

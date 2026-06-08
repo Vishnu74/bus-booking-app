@@ -1,0 +1,100 @@
+<div class="min-h-screen bg-gray-100 p-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">Passenger Dashboard</h2>
+      <span class="text-sm text-gray-500">{{ bookedSeats.length }} bookings</span>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead class="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th *ngFor="let header of tableHeaders"
+                class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                {{ header }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let seat of bookedSeats">
+              <tr *ngIf="editingSeatId !== seat.id" class="hover:bg-gray-50 transition-colors border-b border-gray-100">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
+                  #{{ seat.id }} <span class="text-gray-400 font-normal">({{ seat.deck }})</span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                  {{ seat.passenger?.firstName }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                  {{ seat.passenger?.lastName }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                  {{ seat.passenger?.email }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {{ formatDate(seat.passenger?.bookingDate || '') }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                  <button (click)="startEdit(seat)"
+                    class="text-blue-600 hover:text-blue-800 font-medium mr-4 transition-colors">
+                    Edit
+                  </button>
+                  <button (click)="deleteBooking(seat.id)"
+                    class="text-red-600 hover:text-red-800 font-medium transition-colors">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="editingSeatId === seat.id" [formGroup]="editForm" class="bg-blue-50 border-b border-gray-100">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
+                  #{{ seat.id }} <span class="text-gray-400 font-normal">({{ seat.deck }})</span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <input formControlName="firstName"
+                    class="w-full px-3 py-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <div *ngIf="errorService.getErrorMessage(editForm, 'firstName') as msg" class="text-red-500 text-xs mt-1">
+  {{ msg }}
+</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <input formControlName="lastName"
+                    class="w-full px-3 py-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                  <div *ngIf="errorService.getErrorMessage(editForm, 'lastName') as msg" class="text-red-500 text-xs mt-1">
+                    {{ msg }}
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <input formControlName="email"
+                    class="w-full px-3 py-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                  <div *ngIf="errorService.getErrorMessage(editForm, 'email') as msg" class="text-red-500 text-xs mt-1">
+                    {{ msg }}
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {{ formatDate(seat.passenger?.bookingDate || '') }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                  <button type="button" (click)="saveEdit(seat.id)"
+                    class="text-green-600 hover:text-green-800 font-medium mr-4 transition-colors">
+                    Save
+                  </button>
+                  <button type="button" (click)="cancelEdit()"
+                    class="text-gray-600 hover:text-gray-800 font-medium transition-colors">
+                    Cancel
+                  </button>
+                </td>
+              </tr>
+
+            </ng-container>
+            <tr *ngIf="bookedSeats.length === 0">
+              <td colspan="6" class="px-6 py-10 text-center text-gray-500 text-sm">
+                No bookings yet.
+                <a routerLink="/reserve" class="text-blue-600 underline hover:text-blue-800 ml-1">Go reserve a seat</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="min-h-screen bg-gray-100 p-6">
+  <div class="max-w-4xl mx-auto">
+    
+    <div class="bg-red-500 text-white text-center py-3 px-4  mb-6 text-sm font-semibold shadow-sm">
+      Click on an Available seat to proceed with your transaction
+    </div>
+
+   
+    <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-200">
+      <h2 class="text-gray-800 font-bold text-lg mb-5">Lower Deck</h2>
+      <div class="flex items-start gap-5">
+        <div class="w-14 h-28 bg-gray-300 rounded-lg flex items-center justify-center text-gray-500 shrink-0">
+         
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <div class="grid grid-cols-5 gap-3">
+            <ng-container *ngIf="seats$ | async as seats">
+              <button
+                *ngFor="let seat of getLowerSeats(seats); trackBy: trackBySeatId"
+                (click)="selectSeat(seat)"
+                [class.bg-white]="seat.status === 'available'"
+                [class.border-gray-300]="seat.status === 'available'"
+                [class.bg-gray-400]="seat.status === 'booked'"
+                [class.border-gray-500]="seat.status === 'booked'"
+                [class.bg-red-400]="selectedSeatId === seat.id && seat.status !== 'booked'"
+                [class.border-red-500]="selectedSeatId === seat.id && seat.status !== 'booked'"
+                [class.text-white]="seat.status === 'booked' || selectedSeatId === seat.id"
+                [class.cursor-not-allowed]="seat.status === 'booked'"
+                [class.opacity-60]="seat.status === 'booked'"
+                class="border-2 rounded-lg h-14 flex items-center justify-center text-sm font-semibold transition-all hover:scale-105 active:scale-95"
+              >
+                {{ seat.id }}
+              </button>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h2 class="text-gray-800 font-bold text-lg mb-5">Upper Deck</h2>
+      <div class="flex items-start gap-5">
+        <div class="w-14 h-28 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400 text-xs font-medium shrink-0">
+          stairs
+        </div>
+        <div class="flex-1">
+          <div class="grid grid-cols-5 gap-3">
+            <ng-container *ngIf="seats$ | async as seats">
+              <button
+                *ngFor="let seat of getUpperSeats(seats); trackBy: trackBySeatId"
+                (click)="selectSeat(seat)"
+                [class.bg-white]="seat.status === 'available'"
+                [class.border-gray-300]="seat.status === 'available'"
+                [class.bg-gray-400]="seat.status === 'booked'"
+                [class.border-gray-500]="seat.status === 'booked'"
+                [class.bg-red-400]="selectedSeatId === seat.id && seat.status !== 'booked'"
+                [class.border-red-500]="selectedSeatId === seat.id && seat.status !== 'booked'"
+                [class.text-white]="seat.status === 'booked' || selectedSeatId === seat.id"
+                [class.cursor-not-allowed]="seat.status === 'booked'"
+                [class.opacity-60]="seat.status === 'booked'"
+                class="border-2 rounded-lg h-14 flex items-center justify-center text-sm font-semibold transition-all hover:scale-105 active:scale-95"
+              >
+                {{ seat.id }}
+              </button>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -2,7 +2,8 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": "1f7b6b8c-448b-47dc-a9eb-19c5a7248b95"
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -26,12 +27,9 @@
             ],
             "styles": [
               "src/styles.css"
-            ],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            ]
+           
+           
           },
           "configurations": {
             "production": {
