@@ -28,15 +28,16 @@ export class BookingForm implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    debugger;
-    this.seatId = Number(this.route.snapshot.paramMap.get('id'));
-    const seat = this.passengerService.getSeatById(this.seatId);
-    if (!seat || seat.status === 'booked') {
-      this.router.navigate(['/reserve']);
-    }
-    this.buildForm();
-
+  this.seatId = Number(this.route.snapshot.paramMap.get('id'));
+  console.log('Seat ID:', this.seatId);
+  const seat = this.passengerService.getSeatById(this.seatId);
+  console.log('Seat:', seat);
+  if (!seat || seat.status === 'booked') {
+    this.router.navigate(['/reserve']);
+    return;
   }
+  this.buildForm();
+}
   buildForm(): void {
     this.bookingForm = this.fb.group({
       firstName: [
