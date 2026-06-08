@@ -5,10 +5,8 @@ import { DashboardComponent } from './component/dashboard-component/dashboard-co
 
 
 export const routes: Routes = [
- { path: 'reserve', component: SeatComponent },
- {path:'reserve/:id', component: BookingForm},
- {path:'dashboard', component: DashboardComponent},
- { path: '', redirectTo: '/reserve', pathMatch: 'full' },
-  { path: '**', redirectTo: '/reserve' }    
- 
-];
+  { path: 'reserve', component: SeatComponent },
+  { path: 'reserve/:id', component: BookingForm },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: '', redirectTo: '/reserve', pathMatch: 'full' },
+  { path: '**', component: SeatComponent }

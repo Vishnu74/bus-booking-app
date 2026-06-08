@@ -1,0 +1,9 @@
+services:
+  - type: static
+    name: booking-app
+    buildCommand: npm run build
+    staticPublishPath: dist/booking-app/browser
+    routes:
+      - path: /*
+        matchType: exact
+        destination: /index.html
