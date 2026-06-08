@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,11 +7,27 @@ import { Router } from '@angular/router';
   templateUrl: './navbar-component.html',
   styleUrl: './navbar-component.css',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+  currentRoute: string = '/reserve';
+
   constructor(private router: Router) {}
 
+  ngOnInit(): void {
+    this.updateCurrentRoute();
+    this.router.events.subscribe(() => {
+      this.updateCurrentRoute();
+    });
+  }
+
+  private updateCurrentRoute(): void {
+    const segments = this.router.url.split('/');
+    this.currentRoute = '/' + (segments[1] || 'reserve');
+  }
+
   navigateTo(route: string): void {
-    this.router.navigate([route]);
+    if (route !== this.currentRoute) {
+      this.router.navigate([route]);
+    }
   }
 
 
